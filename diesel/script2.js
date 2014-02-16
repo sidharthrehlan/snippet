@@ -14,7 +14,6 @@
 				var prefIndex = hashArr[i].substring(5,equalToPos);
 				var prefName =  hashArr[i].substr(equalToPos+1);
 				
-				//var jsonObj = {"key" : prefIndex};
 					hashObj[prefName] = {"key" : prefIndex};
 				} 
 		}
@@ -27,9 +26,10 @@
 				var prefvString =  hashArr[i].substr(equalToPos+1);
 				var prefvArr = prefvString.split("|");
 				for(var obj in hashObj){
-					
-					if(hashObj[obj]["key"] == prefIndex){
-						hashObj[obj]["value"] = prefvArr;
+					if(hashObj.hasOwnProperty(obj)){
+						if(hashObj[obj]["key"] == prefIndex){
+							hashObj[obj]["value"] = prefvArr;
+					}	
 				}
 			} 
 		}
@@ -55,30 +55,29 @@
 
 
 	function addToHashObj(prefn,prefv){
-		if(hashObj[prefn])
-		{
-			hashObj[prefn]["value"].push(prefv);
+		if(hashObj.hasOwnProperty(prefn)){
+			if(hashObj[prefn]["value"].indexOf(prefv) == -1){
+				hashObj[prefn]["value"].push(prefv);
+			}	
 		}
 		else {
-			var jsonObj = {
-				"value" : new Array(prefv)
-			};
+			var jsonObj = {"value" : new Array(prefv)};
 			hashObj[prefn] = jsonObj;	
 		}
-		
-		
 	}
 
 	function removeFromHashObj(prefn,prefv){
-		//if(hashObj.data[prefn][prefv].length )
-		hashObj[prefn]["value"].pop(prefv);
-		if(hashObj[prefn]["value"].length == 0)
-			delete(hashObj[prefn]);
-
+		if(hashObj.hasOwnProperty(prefn)){
+			hashObj[prefn]["value"].splice(hashObj[prefn]["value"].indexOf(prefv),1);
+			if(hashObj[prefn]["value"].length == 0)
+				delete(hashObj[prefn]);
+		}
 	}
 
 	function resetHashObj(prefn){
-		delete(hashObj[prefn]);
+		if(hashObj.hasOwnProperty(prefn)){
+			delete(hashObj[prefn]);
+		}	
 	}
 
 	hashUrlToHashObj(hash);
