@@ -1,11 +1,13 @@
 var Matrix = function(){
-		this.defaultBoxBackground = '#ccc';
-		this.defaultGridBackground = '#eee';
-		this.highlightElement = 'dash';
-		this.record = {};
-		this.matrixDiv = document.getElementById('matrix');
+		var defaultBoxBackground = '#ccc';
+		var defaultGridBackground = '#eee';
+		var highlightElement = 'dash';
+		var record = {};
+		var matrixDiv = document.getElementById('matrix');
+		var activeColor = "";
 	
-		
+		var that = this;
+
 		this.createGridStr = function(row,col){
 			var number = 1;
 			var matrixHtml = '';
@@ -15,16 +17,44 @@ var Matrix = function(){
 					number++;
 				};		
 			};
-			//this.matrixDiv.innerHtml = matrixHtml;
+		//	matrixDiv.innerHTML = matrixHtml;
 			//this.matrixDiv.innerHtml = 'sidharth';
 		};
+		
 		this.initEventBinding = function(){
-			document.querySelectorAll('.row div').addEventListener('mouseOver',function(){
-				this.style.border('1px solid #000');
-			},false);
-			
+			//bind element for grid
+			var elementList = document.querySelectorAll('.row div');
+			for(var i=0;i < elementList.length; i++){
+				//mouseover
+				elementList[i].addEventListener('mouseover',function(){
+					this.style.border = "1px dotted #000";
+					this.addClass('dotted');
+				},false);
 
-			//el.addEventListener('mouseClick')
+				elementList[i].addEventListener('mouseout',function(){
+					this.style.border = " ";
+					this.removeClass('dotted');
+				},false);
+
+				elementList[i].addEventListener('click',function(){
+					if(!activeColor) alert('please select one color');
+					else {
+							this.style.backgroundColor = activeColor;
+							
+					}
+				},false);
+
+			}
+
+			//bind element for radio button
+			var radioList = document.querySelectorAll("input[type='radio'][name='color']");
+			for(var i=0;i < radioList.length; i++){
+				radioList[i].addEventListener('click',function(){
+					//if(!activeColor) alert('please select one color');
+					activeColor = this.value;
+				},false);
+
+			}
 
 
 		};
@@ -49,3 +79,4 @@ var matrix = new Matrix();
 
 
 matrix.createGridStr(3,3);
+matrix.initEventBinding();
