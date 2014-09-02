@@ -1,0 +1,14 @@
+div#matrix .row div{
+	width:100px;
+	height: 100px;
+	float:left;
+	margin:10px;
+	background-color:#eee;
+	text-align: center;
+}
+.row{
+	clear:both;
+	overflow:hidden;
+}
+
+

@@ -15,11 +15,14 @@ var Matrix = function(){
 					number++;
 				};		
 			};
-			this.matrixDiv.innerHtml = matrixHtml;
+			//this.matrixDiv.innerHtml = matrixHtml;
 			//this.matrixDiv.innerHtml = 'sidharth';
 		};
-		this.initEventBinding = function(el){
-			//el.addEventListener('mouseOver')
+		this.initEventBinding = function(){
+			document.querySelectorAll('.row div').addEventListener('mouseOver',function(){
+				this.style.border('1px solid #000');
+			},false);
+			
 
 			//el.addEventListener('mouseClick')
 
