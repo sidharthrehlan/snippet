@@ -11,4 +11,18 @@ div#matrix .row div{
 	overflow:hidden;
 }
 
+.red {
+	background-color: red !important;
+}
 
+.green{
+	background-color: green !important;
+}
+
+.blue {
+	background-color: blue !important;
+}
+
+.dotted {
+	border: 1px dotted #000;
+}
